@@ -352,6 +352,8 @@ public class StudentGroup implements StudentArrayOperation {
 		}
 //		if (i==students.length-1)
 //			throw new IllegalArgumentException();
+		if (i==students.length-1)
+			i=0;
 		return students[i+1];
 	}
 }
