@@ -251,7 +251,7 @@ public class StudentGroup implements StudentArrayOperation {
 	@Override
 	public int getCurrentAgeByDate(int indexOfStudent) {
 		// Add your implementation here
-		if (indexOfStudent==0)
+		if (indexOfStudent<0 || indexOfStudent>=students.length)
 			throw new IllegalArgumentException();
 
 		Date birthdate = students[indexOfStudent].getBirthDate();
