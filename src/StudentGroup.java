@@ -243,7 +243,7 @@ public class StudentGroup implements StudentArrayOperation {
 		Date startDate = date;
 		Calendar c = Calendar.getInstance();
 		c.setTime(startDate);
-		c.add(Calendar.DATE, days);
+		c.add(Calendar.DATE, days-1);
 		Date endDate = c.getTime();
 		return getBetweenBirthDates(startDate, endDate);
 	}
