@@ -1,4 +1,7 @@
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A fix-sized array of students
@@ -196,36 +199,126 @@ public class StudentGroup implements StudentArrayOperation {
 	@Override
 	public Student[] getByBirthDate(Date date) {
 		// Add your implementation here
-		return null;
+		if (date==null)
+			throw new IllegalArgumentException();
+		List<Student> temp = new LinkedList<>();
+		for (int i=0;i<students.length;i++) {
+			if (students[i].getBirthDate().before(date) || students[i].getBirthDate().equals(date))
+				temp.add(students[i]);
+		}
+		Student[] dates = new Student[temp.size()];
+		int i=0;
+		for (Student s : temp) {
+			dates[i] = s;
+			i++;
+		}
+		return dates;
 	}
 
 	@Override
 	public Student[] getBetweenBirthDates(Date firstDate, Date lastDate) {
 		// Add your implementation here
-		return null;
+		if (firstDate==null || lastDate == null)
+			throw new IllegalArgumentException();
+
+		List<Student> temp = new LinkedList<>();
+		for (int i=0;i<students.length;i++) {
+			Date date = students[i].getBirthDate();
+			if ((date.after(firstDate) && date.before(lastDate)) || date.equals(firstDate) ||
+					date.equals(lastDate))
+				temp.add(students[i]);
+		}
+		Student[] dates = new Student[temp.size()];
+		int i=0;
+		for (Student s : temp) {
+			dates[i] = s;
+			i++;
+		}
+		return dates;
 	}
 
 	@Override
 	public Student[] getNearBirthDate(Date date, int days) {
 		// Add your implementation here
-		return null;
+		Date startDate = date;
+		Calendar c = Calendar.getInstance();
+		c.setTime(startDate);
+		c.add(Calendar.DATE, days);
+		Date endDate = c.getTime();
+		return getBetweenBirthDates(startDate, endDate);
 	}
 
 	@Override
 	public int getCurrentAgeByDate(int indexOfStudent) {
 		// Add your implementation here
-		return 0;
+		if (indexOfStudent==0)
+			throw new IllegalArgumentException();
+
+		Date birthdate = students[indexOfStudent].getBirthDate();
+		Calendar birth = Calendar.getInstance();
+        birth.setTime(birthdate);
+        Calendar today = Calendar.getInstance();
+
+        int yearDifference = today.get(Calendar.YEAR)
+                - birth.get(Calendar.YEAR);
+
+        if (today.get(Calendar.MONTH) < birth.get(Calendar.MONTH)) {
+            yearDifference--;
+        } else {
+            if (today.get(Calendar.MONTH) == birth.get(Calendar.MONTH)
+                    && today.get(Calendar.DAY_OF_MONTH) < birth
+                            .get(Calendar.DAY_OF_MONTH)) {
+                yearDifference--;
+            }
+
+        }
+
+        return yearDifference;
+	}
+
+	public int getAge (Date birthDate) {
+		Calendar birth = Calendar.getInstance();
+        birth.setTime(birthDate);
+        Calendar today = Calendar.getInstance();
+
+        int yearDifference = today.get(Calendar.YEAR)
+                - birth.get(Calendar.YEAR);
+
+        if (today.get(Calendar.MONTH) < birth.get(Calendar.MONTH)) {
+            yearDifference--;
+        } else {
+            if (today.get(Calendar.MONTH) == birth.get(Calendar.MONTH)
+                    && today.get(Calendar.DAY_OF_MONTH) < birth
+                            .get(Calendar.DAY_OF_MONTH)) {
+                yearDifference--;
+            }
+
+        }
+
+        return yearDifference;
 	}
 
 	@Override
 	public Student[] getStudentsByAge(int age) {
 		// Add your implementation here
-		return null;
+		List<Student> list = new LinkedList<>();
+		for (int i=0;i<students.length;i++) {
+			if (getAge(students[i].getBirthDate())== age)
+				list.add(students[i]);
+		}
+		Student[] ans = new Student[list.size()];
+		int i=0;
+		for (Student s : list) {
+			ans[i] = s;
+			i++;
+		}
+		return ans;
 	}
 
 	@Override
 	public Student[] getStudentsWithMaxAvgMark() {
 		// Add your implementation here
+
 		return null;
 	}
 
