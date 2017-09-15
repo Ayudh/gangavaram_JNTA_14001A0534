@@ -79,7 +79,7 @@ public class Student implements Comparable {
 	public boolean equals(Object obj) {
 		boolean flag = false;
 		Student other = (Student) obj;
-		if (this.id == other.id)
+		if (this.id == other.getId())
 			return true;
 		return flag;
 //		return super.equals(obj);
