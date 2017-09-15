@@ -319,12 +319,37 @@ public class StudentGroup implements StudentArrayOperation {
 	public Student[] getStudentsWithMaxAvgMark() {
 		// Add your implementation here
 
-		return null;
+		Double max = Double.MIN_VALUE;
+		for (int i=0;i<students.length;i++) {
+			if (max<students[i].getAvgMark())
+				max = students[i].getAvgMark();
+		}
+
+		List<Student> list = new LinkedList<>();
+		for (int i=0;i<students.length;i++) {
+			if (students[i].getAvgMark()==max)
+				list.add(students[i]);
+		}
+		Student[] ans = new Student[list.size()];
+		int i=0;
+		for (Student s : list) {
+			ans[i] = s;
+			i++;
+		}
+
+		return ans;
 	}
 
 	@Override
 	public Student getNextStudent(Student student) {
 		// Add your implementation here
-		return null;
+		if (student == null)
+			throw new IllegalArgumentException();
+		int i;
+		for (i=0;i<students.length;i++) {
+			if (students[i].equals(student))
+				break;
+		}
+		return students[i+1];
 	}
 }
