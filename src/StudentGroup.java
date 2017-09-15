@@ -26,68 +26,157 @@ public class StudentGroup implements StudentArrayOperation {
 	@Override
 	public Student[] getStudents() {
 		// Add your implementation here
-		return null;
+		return students;
+//		return null;
 	}
 
 	@Override
 	public void setStudents(Student[] students) {
 		// Add your implementation here
+		if (students==null)
+			throw new IllegalArgumentException();
+		this.students = students;
 	}
 
 	@Override
 	public Student getStudent(int index) {
 		// Add your implementation here
-		return null;
+		if (index<0 || index>=students.length)
+			throw new IllegalArgumentException();
+		return students[index];
+//		return null;
 	}
 
 	@Override
 	public void setStudent(Student student, int index) {
 		// Add your implementation here
+		if (student==null)
+			throw new IllegalArgumentException();
+		if (index<0 || index>=students.length)
+			throw new IllegalArgumentException();
+		students[index] = student;
 	}
 
 	@Override
 	public void addFirst(Student student) {
 		// Add your implementation here
+		if (student==null)
+			throw new IllegalArgumentException();
+		Student[] newStudents = new Student[students.length + 1];
+		newStudents[0] = student;
+		for (int i=0;i<students.length;i++) {
+			newStudents[i + 1] = students[i];
+		}
+		students = newStudents;
+
 	}
 
 	@Override
 	public void addLast(Student student) {
 		// Add your implementation here
+		if (student==null)
+			throw new IllegalArgumentException();
+		Student[] newStudents = new Student[students.length + 1];
+		for (int i=0;i<students.length;i++) {
+			newStudents[i] = students[i];
+		}
+		newStudents[newStudents.length-1] = student;
+		students= newStudents;
 	}
 
 	@Override
 	public void add(Student student, int index) {
 		// Add your implementation here
+		if (index<0 ||index>=students.length)
+			throw new IllegalArgumentException();
+		if (student==null)
+			throw new IllegalArgumentException();
+		Student[] newStudents = new Student[students.length + 1];
+		for (int i=0;i<index;i++) {
+			newStudents[i]= students[i];
+		}
+		newStudents[index] = student;
+		for (int i=index;i<students.length;i++) {
+			newStudents[i + 1] = students[i];
+		}
+		students = newStudents;
 	}
 
 	@Override
 	public void remove(int index) {
 		// Add your implementation here
+		if (index<0 || index>=students.length)
+			throw new IllegalArgumentException();
+		Student[] newStudents = new Student[students.length - 1];
+		for (int i=0;i<index;i++)
+			newStudents[i] = students[i];
+		for (int i=index+1;i<students.length;i++)
+			newStudents[i-1] = students[i];
+		students = newStudents;
 	}
 
 	@Override
 	public void remove(Student student) {
 		// Add your implementation here
+		if (student==null)
+			throw new IllegalArgumentException();
+		for (int i=0;i<students.length;i++) {
+			if (students[i].equals(student)) {
+				remove(i);
+				return;
+			}
+		}
+		throw new IllegalArgumentException("Student not exist");
 	}
 
 	@Override
 	public void removeFromIndex(int index) {
 		// Add your implementation here
+		if (index<0 || index>=students.length)
+			throw new IllegalArgumentException();
+		Student[] newStudents = new Student[index + 1];
+		for (int i=0;i<=index;i++)
+			newStudents[i] = students[i];
+		students = newStudents;
 	}
 
 	@Override
 	public void removeFromElement(Student student) {
 		// Add your implementation here
+		if (student==null)
+			throw new IllegalArgumentException();
+		for (int i=0;i<students.length;i++) {
+			if (students[i].equals(student)) {
+				removeFromIndex(i);
+				return;
+			}
+		}
+
 	}
 
 	@Override
 	public void removeToIndex(int index) {
 		// Add your implementation here
+		if (index<0 || index>=students.length)
+			throw new IllegalArgumentException();
+		Student[] newStudents = new Student[students.length-index];
+		for (int i=0;i<newStudents.length;i++) {
+			newStudents[i] = students[index + i];
+		}
+		students = newStudents;
 	}
 
 	@Override
 	public void removeToElement(Student student) {
 		// Add your implementation here
+		if (student==null)
+			throw new IllegalArgumentException();
+		for (int i=0;i<students.length;i++) {
+			if (students[i].equals(student)) {
+				removeToIndex(i);
+				return;
+			}
+		}
 	}
 
 	@Override
