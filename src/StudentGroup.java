@@ -350,6 +350,8 @@ public class StudentGroup implements StudentArrayOperation {
 			if (students[i].equals(student))
 				break;
 		}
+		if (i==students.length-1)
+			throw new IllegalArgumentException();
 		return students[i+1];
 	}
 }
