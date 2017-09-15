@@ -77,10 +77,13 @@ public class Student implements Comparable {
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean flag = false;
+		boolean flag = true;
 		Student other = (Student) obj;
-		if (this.id == other.id)
-			return true;
+		if (this.id != other.id)
+			flag = false;
+		if (this.fullName.equals(other.fullName)== false)
+			flag = false;
+
 		return flag;
 //		return super.equals(obj);
 	}
